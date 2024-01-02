@@ -39,23 +39,34 @@ public class Server {
             InetAddress clientAddress = newConnection.getInetAddress();
             adressUser = clientAddress.getHostAddress();
             portUser = newConnection.getLocalPort();
-            if (msgIncome.contains("hello server")) {
-                textOut.print("Server: ");
-                textOut.println("hello client");
-            }
 
-            if (msgIncome.contains("quit") || msgIncome.contains("exit")) {
-                textOut.println("Exiting...");
-                stop();
-                isRuning = false;
-            }
-
-            if (!msgIncome.contains("hello server") && !msgIncome.contains("quit")) {
-                textOut.print("Server: ");
-                textOut.println("Listening...");
-            }
+            isRuning = textResponseToUser(msgIncome, isRuning, adressUser, portUser);
         }
 
+    }
+
+    private boolean textResponseToUser(String msgIncome, boolean isRuning, String adressUser, int portUser) throws IOException {
+        if (msgIncome.contains("hello server")) {
+            textOut.print("Server: ");
+            textOut.println("hello client");
+        }
+
+        if (msgIncome.contains("quit") || msgIncome.contains("exit")) {
+            textOut.println("Exiting...");
+            stop();
+            isRuning = false;
+        }
+
+        if (msgIncome.contains("info")) {
+            textOut.println("IP: " + adressUser);
+            textOut.println("Port: " + portUser);
+        }
+
+        if (!msgIncome.contains("hello server") && !msgIncome.contains("quit")) {
+            textOut.print("Server: ");
+            textOut.println("Listening...");
+        }
+        return isRuning;
     }
 
     private static void incomeInfoFromUser(String msgIncome, String adressUser, int portUser) {
