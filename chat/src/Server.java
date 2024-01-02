@@ -24,9 +24,7 @@ public class Server {
 
     private void runServer() throws IOException {
         boolean isRuning = true;
-        textOut.println("You managed to connect to the server!");
-        textOut.println("Here are some tips:");
-        textOut.println("=> If you write \"hello server\" it responds to you.\n=> If you write something in the terminal it sends it to the server.\n=> When you type \"exit\" or \"quit\" it ends the connection.\n");
+        msgPositive();
 
         String msgIncome;
         String adressUser;
@@ -43,6 +41,12 @@ public class Server {
             isRuning = textResponseToUser(msgIncome, isRuning, adressUser, portUser);
         }
 
+    }
+
+    private void msgPositive() {
+        textOut.println("You managed to connect to the server!");
+        textOut.println("Here are some tips:");
+        textOut.println("=> If you write \"hello server\" it responds to you.\n=> If you write something in the terminal it sends it to the server.\n=> When you type \"exit\" or \"quit\" it ends the connection.\n");
     }
 
     private boolean textResponseToUser(String msgIncome, boolean isRuning, String adressUser, int portUser) throws IOException {
