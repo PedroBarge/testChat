@@ -11,16 +11,9 @@ public class Server {
     }
 
     public void startServer(int portNumber) throws IOException {
-        serverSocket = new ServerSocket(portNumber);
-//        newConnection = serverSocket.accept();
-//        System.out.println("Client connected");
-//        InetAddress clientAddress = newConnection.getInetAddress();
-//        String adressUser = clientAddress.getHostAddress();
-//        int portUser = newConnection.getLocalPort();
-//        incomeInfoFromUser(adressUser, portUser);
-//        String info = "IP: " + adressUser + " Port: " + portUser;
-
         Client client = new Client();
+
+        serverSocket = new ServerSocket(portNumber);
         newConnection = serverSocket.accept();
         client.newClient(newConnection);
 
