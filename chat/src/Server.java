@@ -11,60 +11,55 @@ public class Server {
     }
 
     public void startServer(int portNumber) throws IOException {
-        this.serverSocket = new ServerSocket(portNumber);
-        this.newConnection = this.serverSocket.accept();
-        System.out.println("Client connected");
-        InetAddress clientAddress = this.newConnection.getInetAddress();
-        String adressUser = clientAddress.getHostAddress();
-        int portUser = this.newConnection.getLocalPort();
-        incomeInfoFromUser(adressUser, portUser);
-        String info = "IP: " + adressUser + " Port: " + portUser;
+        serverSocket = new ServerSocket(portNumber);
+//        newConnection = serverSocket.accept();
+//        System.out.println("Client connected");
+//        InetAddress clientAddress = newConnection.getInetAddress();
+//        String adressUser = clientAddress.getHostAddress();
+//        int portUser = newConnection.getLocalPort();
+//        incomeInfoFromUser(adressUser, portUser);
+//        String info = "IP: " + adressUser + " Port: " + portUser;
 
-        try {
-            FileWriter fw = new FileWriter("src/bd/logs.txt", true);
-            fw.write(info + "\n");
-            fw.close();
-        } catch (IOException error) {
-            System.out.println("An error occurred writting to the DB.");
-            error.printStackTrace();
-        }
+        Client client = new Client();
+        newConnection = serverSocket.accept();
+        client.newClient(newConnection);
 
-        this.textOut = new PrintWriter(this.newConnection.getOutputStream(), true);
-        this.textIn = new BufferedReader(new InputStreamReader(this.newConnection.getInputStream()));
-        this.runServer();
+        textOut = new PrintWriter(newConnection.getOutputStream(), true);
+        textIn = new BufferedReader(new InputStreamReader(newConnection.getInputStream()));
+        runServer();
     }
 
     private void runServer() throws IOException {
         boolean isRuning = true;
-        this.textOut.println("You managed to connect to the server!");
-        this.textOut.println("Here are some tips:");
-        this.textOut.println("=> If you write \"hello server\" it responds to you.\n=> If you write something in the terminal it sends it to the server.\n=> When you type \"exit\" or \"quit\" it ends the connection.\n");
+        textOut.println("You managed to connect to the server!");
+        textOut.println("Here are some tips:");
+        textOut.println("=> If you write \"hello server\" it responds to you.\n=> If you write something in the terminal it sends it to the server.\n=> When you type \"exit\" or \"quit\" it ends the connection.\n");
 
         String msgIncome;
         String adressUser;
         int portUser;
         for (; isRuning; incomeInfoFromUser(msgIncome, adressUser, portUser)) {
-            this.textOut.println();
-            this.textOut.print("Server: ");
-            this.textOut.println("Write something");
-            msgIncome = this.textIn.readLine();
-            InetAddress clientAddress = this.newConnection.getInetAddress();
+            textOut.println();
+            textOut.print("Server: ");
+            textOut.println("Write something");
+            msgIncome = textIn.readLine();
+            InetAddress clientAddress = newConnection.getInetAddress();
             adressUser = clientAddress.getHostAddress();
-            portUser = this.newConnection.getLocalPort();
+            portUser = newConnection.getLocalPort();
             if (msgIncome.contains("hello server")) {
-                this.textOut.print("Server: ");
-                this.textOut.println("hello client");
+                textOut.print("Server: ");
+                textOut.println("hello client");
             }
 
             if (msgIncome.contains("quit") || msgIncome.contains("exit")) {
-                this.textOut.println("Exiting...");
-                this.stop();
+                textOut.println("Exiting...");
+                stop();
                 isRuning = false;
             }
 
             if (!msgIncome.contains("hello server") && !msgIncome.contains("quit")) {
-                this.textOut.print("Server: ");
-                this.textOut.println("Listening...");
+                textOut.print("Server: ");
+                textOut.println("Listening...");
             }
         }
 
@@ -77,16 +72,11 @@ public class Server {
         System.out.println();
     }
 
-    private static void incomeInfoFromUser(String adressUser, int portUser) {
-        System.out.println("IP: " + adressUser);
-        System.out.println("Port: " + portUser);
-        System.out.println();
-    }
 
     private void stop() throws IOException {
-        this.textIn.close();
-        this.textOut.close();
-        this.newConnection.close();
-        this.serverSocket.close();
+        textIn.close();
+        textOut.close();
+        newConnection.close();
+        serverSocket.close();
     }
 }
