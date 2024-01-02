@@ -24,9 +24,9 @@ public class Server {
             FileWriter fw = new FileWriter("src/bd/logs.txt", true);
             fw.write(info + "\n");
             fw.close();
-        } catch (IOException var7) {
+        } catch (IOException error) {
             System.out.println("An error occurred writting to the DB.");
-            var7.printStackTrace();
+            error.printStackTrace();
         }
 
         this.textOut = new PrintWriter(this.newConnection.getOutputStream(), true);
