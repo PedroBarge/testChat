@@ -6,17 +6,14 @@ public class Server {
     private Socket newConnection;
     private PrintWriter textOut;
     private BufferedReader textIn;
-
+    Client client = new Client();
     public Server() {
     }
 
     public void startServer(int portNumber) throws IOException {
-        Client client = new Client();
 
         serverSocket = new ServerSocket(portNumber);
         newConnection = serverSocket.accept();
-        client.newClient(newConnection);
-
         textOut = new PrintWriter(newConnection.getOutputStream(), true);
         textIn = new BufferedReader(new InputStreamReader(newConnection.getInputStream()));
         runServer();
@@ -24,6 +21,7 @@ public class Server {
 
     private void runServer() throws IOException {
         boolean isRuning = true;
+        client.newClient(newConnection);
         msgPositive();
 
         String msgIncome;
@@ -38,7 +36,7 @@ public class Server {
             adressUser = clientAddress.getHostAddress();
             portUser = newConnection.getLocalPort();
 
-            isRuning = textResponseToUser(msgIncome, isRuning, adressUser, portUser);
+            isRuning = textResponseToUser(msgIncome, true, adressUser, portUser);
         }
 
     }
@@ -50,6 +48,7 @@ public class Server {
     }
 
     private boolean textResponseToUser(String msgIncome, boolean isRuning, String adressUser, int portUser) throws IOException {
+
         if (msgIncome.contains("hello server")) {
             textOut.print("Server: ");
             textOut.println("hello client");

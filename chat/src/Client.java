@@ -1,10 +1,10 @@
-import java.io.FileWriter;
-import java.io.IOException;
+import java.io.*;
 import java.net.InetAddress;
 import java.net.Socket;
 
 public class Client {
-    public void newClient(Socket newConnection) {
+
+    public void newClient(Socket newConnection) throws IOException {
         System.out.println("Client connected");
         InetAddress clientAddress = newConnection.getInetAddress();
         String adressUser = clientAddress.getHostAddress();
@@ -14,7 +14,7 @@ public class Client {
 
         try {
             FileWriter fw = new FileWriter("src/bd/logs.txt", true);
-            fw.write("New connection"+"\n");
+            fw.write("New connection" + "\n");
             fw.write(info + "\n");
             fw.close();
         } catch (IOException error) {

@@ -1,2 +1,6 @@
 New connection
+Pedro
+IP: 127.0.0.1 Port: 8666
+New connection
+l
 IP: 127.0.0.1 Port: 8666
