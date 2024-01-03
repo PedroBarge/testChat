@@ -14,6 +14,7 @@ public class Client {
 
         try {
             FileWriter fw = new FileWriter("src/bd/logs.txt", true);
+            fw.write("New connection"+"\n");
             fw.write(info + "\n");
             fw.close();
         } catch (IOException error) {

@@ -1,13 +1,2 @@
-IP: 127.0.0.1 Port: 8666
-IP: 127.0.0.1 Port: 8666
-IP: 127.0.0.1 Port: 8666
-IP: 127.0.0.1 Port: 8666
-IP: 127.0.0.1 Port: 8666
-info
-IP: 127.0.0.1 Port: 8666
-IP: 127.0.0.1 Port: 8666
-IP: 127.0.0.1 Port: 8666
-IP: 127.0.0.1 Port: 8666
-IP: 127.0.0.1 Port: 8666
-IP: 127.0.0.1 Port: 8666
+New connection
 IP: 127.0.0.1 Port: 8666
