@@ -2,8 +2,9 @@ import java.io.*;
 import java.net.InetAddress;
 import java.net.Socket;
 
-public class ClientManager implements Runnable{
+public class ClientManager implements Runnable {
     private final Socket clientSocket;
+
     public ClientManager(Socket socketClient) {
         this.clientSocket = socketClient;
     }
@@ -19,19 +20,21 @@ public class ClientManager implements Runnable{
             String adressUser = clientAddress.getHostAddress();
             int portUser = clientSocket.getLocalPort();
             String info = "IP: " + adressUser + " Port: " + portUser;
+            System.out.println(info);
             try {
                 FileWriter fw = new FileWriter("src/DataBases/logsClients.txt", true);
-                fw.write("New connection"+"\n");
+                fw.write("New connection" + "\n");
                 fw.write(info + "\n");
                 fw.close();
             } catch (IOException error) {
                 System.out.println("An error occurred writting to the DB.");
                 error.printStackTrace();
             }
-            welcomeText(textOut);
 
+            welcomeText(textOut);
             boolean isRuning = true;
             clientIsOnTheServer(isRuning, textIn, textOut);
+
             clientSocket.close();
         } catch (IOException e) {
             e.printStackTrace();
@@ -40,7 +43,9 @@ public class ClientManager implements Runnable{
 
     private static void clientIsOnTheServer(boolean isRuning, BufferedReader textIn, PrintWriter textOut) throws IOException {
         while (isRuning) {
+            textOut.println("Write here: ");
             String msgIncome = textIn.readLine();
+            textOut.println();
             if (msgIncome.contains("hello server")) {
                 textOut.print("Server: ");
                 textOut.println("hello client");
@@ -55,6 +60,7 @@ public class ClientManager implements Runnable{
                 textOut.print("Server: ");
                 textOut.println("Listening...");
             }
+            textOut.println();
         }
     }
 

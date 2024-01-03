@@ -13,10 +13,10 @@ public class Server {
         boolean isOn = true;
         serverSocket = new ServerSocket(8666);
         System.out.println("Sucess " + serverSocket);
-        System.out.println(" Waiting for clients...");
+        System.out.println("Waiting for clients...");
 
-        while (isOn){
-            Socket clientSocket =serverSocket.accept();
+        while (isOn) {
+            Socket clientSocket = serverSocket.accept();
             ClientManager clientManager = new ClientManager(clientSocket);
             Thread threadClientManager = new Thread(clientManager);
             threadClientManager.start();
