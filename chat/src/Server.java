@@ -11,10 +11,12 @@ public class Server {
     }
 
     public void startServer(int portNumber) throws IOException {
-        Client client = new Client();
+
 
         serverSocket = new ServerSocket(portNumber);
         newConnection = serverSocket.accept();
+
+        Client client = new Client();
         client.newClient(newConnection);
 
         textOut = new PrintWriter(newConnection.getOutputStream(), true);
