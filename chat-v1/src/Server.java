@@ -10,15 +10,18 @@ public class Server {
     }
 
     public void start() throws IOException {
+        int onlineClients = 0;
         boolean isOn = true;
         serverSocket = new ServerSocket(8666);
-        System.out.println("Sucess " + serverSocket);
+        System.out.println("Success " + serverSocket);
         System.out.println("Waiting for clients...");
 
         while (isOn) {
             Socket clientSocket = serverSocket.accept();
             ClientManager clientManager = new ClientManager(clientSocket);
+            onlineClients++;
             Thread threadClientManager = new Thread(clientManager);
+            System.out.println(onlineClients);
             threadClientManager.start();
         }
     }

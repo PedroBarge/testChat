@@ -75,7 +75,7 @@ public class Server {
         return isRuning;
     }
 
-    private static void incomeInfoFromUser(String msgIncome, String adressUser, int portUser) {
+    private void incomeInfoFromUser(String msgIncome, String adressUser, int portUser) {
         System.out.println("User said: " + msgIncome);
         System.out.println("IP: " + adressUser);
         System.out.println("Port: " + portUser);

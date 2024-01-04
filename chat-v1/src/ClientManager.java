@@ -19,6 +19,8 @@ public class ClientManager implements Runnable {
             InetAddress clientAddress = clientSocket.getInetAddress();
             String adressUser = clientAddress.getHostAddress();
             int portUser = clientSocket.getLocalPort();
+            textOut.println("Insert name");
+            String name = textIn.readLine();
             String info = "IP: " + adressUser + " Port: " + portUser;
             System.out.println(info);
             try {
@@ -33,19 +35,24 @@ public class ClientManager implements Runnable {
 
             welcomeText(textOut);
             boolean isRuning = true;
-            clientIsOnTheServer(isRuning, textIn, textOut);
+            clientIsOnTheServer(isRuning, textIn, textOut, name);
 
-            clientSocket.close();
+            stop();
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
-    private void clientIsOnTheServer(boolean isRuning, BufferedReader textIn, PrintWriter textOut) throws IOException {
+    private void welcomeText(PrintWriter textOut) {
+        textOut.println("You managed to connect to the server!");
+        textOut.println("Here are some tips:");
+        textOut.println("=> If you write \"hello server\" it responds to you.\n=> If you write something in the terminal it sends it to the server.\n=> When you type \"exit\" or \"quit\" it ends the connection.\n");
+    }
+
+    private void clientIsOnTheServer(boolean isRuning, BufferedReader textIn, PrintWriter textOut, String adressUser) throws IOException {
         while (isRuning) {
             textOut.println("Write here: ");
             String msgIncome = textIn.readLine();
-            textOut.println();
             if (msgIncome.contains("hello server")) {
                 textOut.print("Server: ");
                 textOut.println("hello client");
@@ -61,12 +68,17 @@ public class ClientManager implements Runnable {
                 textOut.println("Listening...");
             }
             textOut.println();
+            incomeInfoFromUser(msgIncome, adressUser);
         }
     }
 
-    private void welcomeText(PrintWriter textOut) {
-        textOut.println("You managed to connect to the server!");
-        textOut.println("Here are some tips:");
-        textOut.println("=> If you write \"hello server\" it responds to you.\n=> If you write something in the terminal it sends it to the server.\n=> When you type \"exit\" or \"quit\" it ends the connection.\n");
+    private void incomeInfoFromUser(String msgIncome, String adressUser) {
+        System.out.println("User Name: " + adressUser);
+        System.out.println("User said: " + msgIncome);
+        System.out.println();
+    }
+
+    private void stop() throws IOException {
+        clientSocket.close();
     }
 }
