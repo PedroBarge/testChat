@@ -10,24 +10,28 @@ public class Server {
     public Server() {
     }
 
+    boolean isOn = true;
+
     private void start() throws IOException {
-        boolean isOn = true;
+
         serverSocket = new ServerSocket(8666);
         System.out.println("Sucess " + serverSocket);
         System.out.println("Waiting for clients...");
-
+        int clt = 0;
         while (isOn) {
             Socket clientSocket = serverSocket.accept();
             ClientManager clientManager = new ClientManager(clientSocket);
+            clt++;
             Thread threadClientManager = new Thread(clientManager);
             threadClientManager.start();
+            // Adicionar list
+            menu();
         }
     }
 
     public void menu() throws IOException {
         Scanner scanner = new Scanner(System.in);
-        boolean on = true;
-        while (on) {
+        while (isOn) {
             System.out.println("Menu");
             System.out.println("1-Start\n2-Check Logs\n0-Exist");
             String option = scanner.next();
@@ -39,7 +43,7 @@ public class Server {
                     checkAllLogs();
                     break;
                 case "0":
-                    on = false;
+                    isOn = false;
                     break;
                 default:
                     System.out.println("Miss click?");
@@ -64,6 +68,7 @@ public class Server {
 
 
     }
+
     private static String readFromInputStream(InputStream inputStream)
             throws IOException {
         StringBuilder resultStringBuilder = new StringBuilder();

@@ -41,7 +41,7 @@ public class ClientManager implements Runnable {
             boolean isRuning = true;
             clientIsOnTheServer(isRuning, textIn, textOut);
 
-            clientSocket.close();
+            stop();
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -60,6 +60,8 @@ public class ClientManager implements Runnable {
             if (msgIncome.contains("quit") || msgIncome.contains("exit")) {
                 textOut.println("Exiting...");
                 isRuning = false;
+                System.out.println("Press one letter and enter...");
+                Thread.interrupted();
                 stop();
             }
 

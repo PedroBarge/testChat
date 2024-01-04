@@ -80,3 +80,19 @@ New connection
 Name: cliente b IP: 127.0.0.1 Port: 8666
 New connection
 Name: null IP: 127.0.0.1 Port: 8666
+New connection
+Name: hello IP: 127.0.0.1 Port: 8666
+New connection
+Name: \ado IP: 127.0.0.1 Port: 8666
+New connection
+Name: a IP: 127.0.0.1 Port: 8666
+New connection
+Name: ddd IP: 127.0.0.1 Port: 8666
+New connection
+Name: a IP: 127.0.0.1 Port: 8666
+New connection
+Name: a IP: 127.0.0.1 Port: 8666
+New connection
+Name: a IP: 127.0.0.1 Port: 8666
+New connection
+Name: Q IP: 127.0.0.1 Port: 8666
