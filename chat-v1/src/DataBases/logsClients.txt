@@ -18,3 +18,65 @@ New connection
 IP: 127.0.0.1 Port: 8666
 New connection
 IP: 127.0.0.1 Port: 8666
+New connection
+Name: PedroIP: 127.0.0.1 Port: 8666
+New connection
+Name: Pedro IP: 127.0.0.1 Port: 8666
+New connection
+Name: Barge IP: 127.0.0.1 Port: 8666
+New connection
+Name: asas IP: 127.0.0.1 Port: 8666
+New connection
+Name: sadafasf IP: 127.0.0.1 Port: 8666
+New connection
+Name: hello IP: 127.0.0.1 Port: 8666
+New connection
+Name: 1 IP: 127.0.0.1 Port: 8666
+New connection
+Name: 2 IP: 127.0.0.1 Port: 8666
+New connection
+Name: 3 IP: 127.0.0.1 Port: 8666
+New connection
+Name: pedro IP: 127.0.0.1 Port: 8666
+New connection
+Name: g IP: 127.0.0.1 Port: 8666
+New connection
+Name: a IP: 127.0.0.1 Port: 8666
+New connection
+Name: aaa IP: 127.0.0.1 Port: 8666
+New connection
+Name: g IP: 127.0.0.1 Port: 8666
+New connection
+Name: hello IP: 127.0.0.1 Port: 8666
+New connection
+Name: cliente 2 IP: 127.0.0.1 Port: 8666
+New connection
+Name: cliente 3 IP: 127.0.0.1 Port: 8666
+New connection
+Name: cliente 1 IP: 127.0.0.1 Port: 8666
+New connection
+Name: cliente 2 IP: 127.0.0.1 Port: 8666
+New connection
+Name: cliente 3 IP: 127.0.0.1 Port: 8666
+New connection
+Name: aa IP: 127.0.0.1 Port: 8666
+New connection
+Name: ssss IP: 127.0.0.1 Port: 8666
+New connection
+Name: cliente 1 IP: 127.0.0.1 Port: 8666
+New connection
+Name: cliente 2 IP: 127.0.0.1 Port: 8666
+New connection
+Name: Cliente A IP: 127.0.0.1 Port: 8666
+New connection
+Name: Cliente A IP: 127.0.0.1 Port: 8666
+New connection
+Name: Cliente B IP: 127.0.0.1 Port: 8666
+New connection
+Name: Cliente C IP: 127.0.0.1 Port: 8666
+New connection
+Name: Cliente A IP: 127.0.0.1 Port: 8666
+New connection
+Name: cliente b IP: 127.0.0.1 Port: 8666
+New connection
+Name: null IP: 127.0.0.1 Port: 8666
