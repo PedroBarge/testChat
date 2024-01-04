@@ -66,9 +66,7 @@ public class ClientManager implements Runnable {
 
             if (msgIncome.contains("quit") || msgIncome.contains("exit")) {
                 textOut.println("Exiting...");
-                numClient--;
                 isRuning = false;
-                checkUsers(numClient);
             }
 
             if (!msgIncome.contains("hello server") && !msgIncome.contains("quit")) {
@@ -84,10 +82,6 @@ public class ClientManager implements Runnable {
         System.out.println("User Name: " + adressUser);
         System.out.println("User said: " + msgIncome);
         System.out.println();
-    }
-
-    private void stop() throws IOException {
-        clientSocket.close();
     }
 
     private void stop() throws IOException {

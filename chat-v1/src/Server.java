@@ -4,8 +4,6 @@ import java.util.Scanner;
 
 public class Server {
     private ServerSocket serverSocket;
-    private PrintWriter textOut;
-    private BufferedReader textIn;
 
     public Server() {
     }
@@ -43,9 +41,7 @@ public class Server {
         while (isOn) {
             Socket clientSocket = serverSocket.accept();
             ClientManager clientManager = new ClientManager(clientSocket);
-            onlineClients++;
             Thread threadClientManager = new Thread(clientManager);
-            System.out.println(onlineClients);
             threadClientManager.start();
         }
     }
