@@ -34,9 +34,8 @@ public class Server {
         }
     }
 
-    public void start() throws IOException {
-        int onlineClients = 0;
-
+    private void start() throws IOException {
+        boolean isOn = true;
         serverSocket = new ServerSocket(8666);
         System.out.println("Success " + serverSocket);
         System.out.println("Waiting for clients...");
@@ -50,4 +49,5 @@ public class Server {
             threadClientManager.start();
         }
     }
+
 }

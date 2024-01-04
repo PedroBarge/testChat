@@ -1,6 +1,7 @@
 import java.io.*;
 import java.net.InetAddress;
 import java.net.Socket;
+import java.util.HashMap;
 
 public class ClientManager implements Runnable {
     private final Socket clientSocket;
@@ -12,16 +13,18 @@ public class ClientManager implements Runnable {
     @Override
     public void run() {
         try {
+            int numClient = 0;
             PrintWriter textOut = new PrintWriter(clientSocket.getOutputStream(), true);
             BufferedReader textIn = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
-
             textOut.println("Client connected.");
             InetAddress clientAddress = clientSocket.getInetAddress();
             String adressUser = clientAddress.getHostAddress();
             int portUser = clientSocket.getLocalPort();
+
             textOut.println("Insert name");
             String name = textIn.readLine();
             String info = "IP: " + adressUser + " Port: " + portUser;
+
             System.out.println(info);
             try {
                 FileWriter fw = new FileWriter("src/DataBases/logsClients.txt", true);
@@ -35,7 +38,9 @@ public class ClientManager implements Runnable {
 
             welcomeText(textOut);
             boolean isRuning = true;
+
             clientIsOnTheServer(isRuning, textIn, textOut, name);
+
 
             stop();
         } catch (IOException e) {
@@ -50,6 +55,7 @@ public class ClientManager implements Runnable {
     }
 
     private void clientIsOnTheServer(boolean isRuning, BufferedReader textIn, PrintWriter textOut, String adressUser) throws IOException {
+
         while (isRuning) {
             textOut.println("Write here: ");
             String msgIncome = textIn.readLine();
@@ -60,7 +66,9 @@ public class ClientManager implements Runnable {
 
             if (msgIncome.contains("quit") || msgIncome.contains("exit")) {
                 textOut.println("Exiting...");
+                numClient--;
                 isRuning = false;
+                checkUsers(numClient);
             }
 
             if (!msgIncome.contains("hello server") && !msgIncome.contains("quit")) {
@@ -76,6 +84,10 @@ public class ClientManager implements Runnable {
         System.out.println("User Name: " + adressUser);
         System.out.println("User said: " + msgIncome);
         System.out.println();
+    }
+
+    private void stop() throws IOException {
+        clientSocket.close();
     }
 
     private void stop() throws IOException {
