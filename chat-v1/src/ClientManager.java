@@ -1,7 +1,6 @@
 import java.io.*;
 import java.net.InetAddress;
 import java.net.Socket;
-import java.util.HashMap;
 
 public class ClientManager implements Runnable {
     private final Socket clientSocket;
@@ -13,7 +12,6 @@ public class ClientManager implements Runnable {
     @Override
     public void run() {
         try {
-            int numClient = 0;
             PrintWriter textOut = new PrintWriter(clientSocket.getOutputStream(), true);
             BufferedReader textIn = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
             textOut.println("Client connected.");
