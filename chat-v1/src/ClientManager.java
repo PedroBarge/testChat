@@ -4,9 +4,11 @@ import java.net.Socket;
 
 public class ClientManager implements Runnable {
     private final Socket clientSocket;
+    private int numOfClientsOnline;
 
-    public ClientManager(Socket socketClient) {
+    public ClientManager(Socket socketClient, int numOfClientsOnline) {
         this.clientSocket = socketClient;
+        this.numOfClientsOnline = numOfClientsOnline;
     }
 
     @Override
@@ -65,6 +67,8 @@ public class ClientManager implements Runnable {
             if (msgIncome.contains("quit") || msgIncome.contains("exit")) {
                 textOut.println("Exiting...");
                 isRuning = false;
+                numOfClientsOnline--;
+                thereIsUser();
             }
 
             if (!msgIncome.contains("hello server") && !msgIncome.contains("quit")) {
@@ -84,5 +88,9 @@ public class ClientManager implements Runnable {
 
     private void stop() throws IOException {
         clientSocket.close();
+    }
+
+    public boolean thereIsUser() {
+        return numOfClientsOnline > 0;
     }
 }
