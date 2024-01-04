@@ -15,7 +15,6 @@ public class ClientManager implements Runnable {
     @Override
     public void run() {
         try {
-            int numClient = 0;
             PrintWriter textOut = new PrintWriter(clientSocket.getOutputStream(), true);
             BufferedReader textIn = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
             textOut.println("Client connected.");
@@ -26,7 +25,6 @@ public class ClientManager implements Runnable {
             String nameClient = textIn.readLine();
             String info = "Name: " + nameClient + " IP: " + adressUser + " Port: " + portUser;
             ipToNameList.put(nameClient, clientAddress);
-            numClient = numClient + 1;
 
             System.out.println(info);
             try {
@@ -41,7 +39,7 @@ public class ClientManager implements Runnable {
 
             welcomeText(textOut);
             boolean isRuning = true;
-            clientIsOnTheServer(isRuning, textIn, textOut, numClient);
+            clientIsOnTheServer(isRuning, textIn, textOut);
 
             clientSocket.close();
         } catch (IOException e) {
@@ -49,7 +47,7 @@ public class ClientManager implements Runnable {
         }
     }
 
-    private void clientIsOnTheServer(boolean isRuning, BufferedReader textIn, PrintWriter textOut, int numClient) throws IOException {
+    private void clientIsOnTheServer(boolean isRuning, BufferedReader textIn, PrintWriter textOut) throws IOException {
         while (isRuning) {
             textOut.println("Write here: ");
             String msgIncome = textIn.readLine();
@@ -61,9 +59,8 @@ public class ClientManager implements Runnable {
 
             if (msgIncome.contains("quit") || msgIncome.contains("exit")) {
                 textOut.println("Exiting...");
-                numClient--;
                 isRuning = false;
-                checkUsers(numClient);
+                stop();
             }
 
             if (!msgIncome.contains("hello server") && !msgIncome.contains("quit")) {
@@ -80,12 +77,6 @@ public class ClientManager implements Runnable {
         textOut.println("=> If you write \"hello server\" it responds to you.\n=> If you write something in the terminal it sends it to the server.\n=> When you type \"exit\" or \"quit\" it ends the connection.\n");
     }
 
-    private void checkUsers(int numClient) throws IOException {
-        if (numClient == 0) {
-            System.out.println(numClient + " users online");
-            stop();
-        }
-    }
 
     private void stop() throws IOException {
         clientSocket.close();
