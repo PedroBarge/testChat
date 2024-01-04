@@ -33,7 +33,7 @@ public class Server {
         Scanner scanner = new Scanner(System.in);
         while (isOn) {
             System.out.println("Menu");
-            System.out.println("1-Start\n2-Check Logs\n0-Exist");
+            System.out.println("1- Start\n2- Check Logs\n0- Exist");
             String option = scanner.next();
             switch (option) {
                 case "1":
