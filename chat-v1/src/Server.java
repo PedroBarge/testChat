@@ -10,37 +10,44 @@ public class Server {
     public Server() {
     }
 
+    boolean isOn = true;
+
+    public void menu() throws IOException {
+        Scanner scanner = new Scanner(System.in);
+        while (isOn) {
+            System.out.println("Menu");
+            System.out.println("1- Start\n0- Exit");
+            String input = scanner.next();
+            switch (input) {
+                case "1":
+                    start();
+                    scanner.reset();
+                    break;
+                case "0":
+                    isOn=false;
+                    scanner.reset();
+                    break;
+                default:
+                    System.out.println("Miss click");
+            }
+            scanner.reset();
+        }
+    }
+
     private void start() throws IOException {
         boolean isOn = true;
         serverSocket = new ServerSocket(8666);
-        System.out.println("Sucess " + serverSocket);
+        System.out.println("Success " + serverSocket);
         System.out.println("Waiting for clients...");
 
         while (isOn) {
             Socket clientSocket = serverSocket.accept();
             ClientManager clientManager = new ClientManager(clientSocket);
+            onlineClients++;
             Thread threadClientManager = new Thread(clientManager);
+            System.out.println(onlineClients);
             threadClientManager.start();
         }
     }
 
-    public void menu() throws IOException {
-        Scanner scanner = new Scanner(System.in);
-        boolean on = true;
-        while (on) {
-            System.out.println("Menu");
-            System.out.println("1-Start\n2-Exist");
-            String option = scanner.next();
-            switch (option) {
-                case "1":
-                    start();
-                    break;
-                case "2":
-                    on = false;
-                    break;
-                default:
-                    System.out.println("Miss click?");
-            }
-        }
-    }
 }
