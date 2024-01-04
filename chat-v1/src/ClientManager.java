@@ -41,7 +41,7 @@ public class ClientManager implements Runnable {
         }
     }
 
-    private static void clientIsOnTheServer(boolean isRuning, BufferedReader textIn, PrintWriter textOut) throws IOException {
+    private void clientIsOnTheServer(boolean isRuning, BufferedReader textIn, PrintWriter textOut) throws IOException {
         while (isRuning) {
             textOut.println("Write here: ");
             String msgIncome = textIn.readLine();
@@ -64,7 +64,7 @@ public class ClientManager implements Runnable {
         }
     }
 
-    private static void welcomeText(PrintWriter textOut) {
+    private void welcomeText(PrintWriter textOut) {
         textOut.println("You managed to connect to the server!");
         textOut.println("Here are some tips:");
         textOut.println("=> If you write \"hello server\" it responds to you.\n=> If you write something in the terminal it sends it to the server.\n=> When you type \"exit\" or \"quit\" it ends the connection.\n");
