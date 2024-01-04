@@ -1,6 +1,5 @@
 import java.io.*;
 import java.net.*;
-import java.util.List;
 import java.util.Scanner;
 
 public class Server {
@@ -23,7 +22,7 @@ public class Server {
                     scanner.reset();
                     break;
                 case "0":
-                    isOn=false;
+                    isOn = false;
                     scanner.reset();
                     break;
                 default:
