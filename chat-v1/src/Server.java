@@ -18,8 +18,8 @@ public class Server {
             String input = scanner.next();
             switch (input) {
                 case "1":
-                    scanner.reset();
                     start();
+                    scanner.reset();
                     break;
                 case "2":
                     writeLogs();
@@ -38,19 +38,38 @@ public class Server {
     public void start() throws IOException {
         int numOfClientsOnline = 0; //Fazer isto em lista
         boolean isOn = true;
-        serverSocket = new ServerSocket(8666);
-        System.out.println("Success " + serverSocket.getInetAddress() + serverSocket.getLocalPort());
-        System.out.println("Waiting for clients...");
+        try {
+            serverSocket = new ServerSocket(8666);
+            System.out.println("Success " + serverSocket.getInetAddress() + serverSocket.getLocalPort());
+            System.out.println("Waiting for clients...");
 
-        while (isOn) {
-            Socket clientSocket = serverSocket.accept();
-            numOfClientsOnline++;
-            ClientManager clientManager = new ClientManager(clientSocket, numOfClientsOnline);
-            clientManager.run();
-            if (!clientManager.thereIsUser()) {
-                isOn = false;
+            while (isOn) {
+                Socket clientSocket = serverSocket.accept();
+                numOfClientsOnline++;
+                ClientManager clientManager = new ClientManager(clientSocket, numOfClientsOnline);
+                clientManager.start();
+//                if (!clientManager.thereIsUser(numOfClientsOnline)) {
+//                    isOn = false;
+//                    clientManager.interrupt();
+//                }
             }
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            closeServer();
         }
+    }
+
+    private void closeServer() {
+        try {
+            if (serverSocket != null && !serverSocket.isClosed()) {
+                serverSocket.close();
+                System.out.println("Server closed.");
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        isOn = false;
     }
 
     private void writeLogs() {
@@ -72,8 +91,7 @@ public class Server {
 
     }
 
-    private static String readFromInputStream(InputStream inputStream)
-            throws IOException {
+    private static String readFromInputStream(InputStream inputStream) throws IOException {
         StringBuilder resultStringBuilder = new StringBuilder();
         try (BufferedReader br
                      = new BufferedReader(new InputStreamReader(inputStream))) {
@@ -84,4 +102,5 @@ public class Server {
         }
         return resultStringBuilder.toString();
     }
+
 }
