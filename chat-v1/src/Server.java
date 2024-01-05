@@ -35,7 +35,7 @@ public class Server {
         }
     }
 
-    private void start() throws IOException {
+    public void start() throws IOException {
         int numOfClientsOnline = 0; //Fazer isto em lista
         boolean isOn = true;
         serverSocket = new ServerSocket(8666);
