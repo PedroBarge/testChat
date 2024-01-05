@@ -2,7 +2,7 @@ import java.io.*;
 import java.net.InetAddress;
 import java.net.Socket;
 
-public class ClientManager implements Runnable {
+public class ClientManager extends Thread {
     private final Socket clientSocket;
     private int numOfClientsOnline;
 
@@ -25,7 +25,7 @@ public class ClientManager implements Runnable {
             String name = textIn.readLine();
             String info = "IP: " + adressUser + " Port: " + portUser;
 
-            System.out.println(info);
+            System.out.println("Name: " + name + "\n" + info);
             try {
                 FileWriter fw = new FileWriter("src/DataBases/logsClients.txt", true);
                 fw.write("New connection" + "\n");
@@ -42,7 +42,7 @@ public class ClientManager implements Runnable {
             clientIsOnTheServer(isRuning, textIn, textOut, name);
 
 
-            stop();
+            //stop();
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -68,7 +68,8 @@ public class ClientManager implements Runnable {
                 textOut.println("Exiting...");
                 isRuning = false;
                 numOfClientsOnline--;
-                thereIsUser();
+                thereIsUser(numOfClientsOnline);
+                clientSocket.close();
             }
 
             if (!msgIncome.contains("hello server") && !msgIncome.contains("quit")) {
@@ -86,11 +87,10 @@ public class ClientManager implements Runnable {
         System.out.println();
     }
 
-    private void stop() throws IOException {
-        clientSocket.close();
-    }
-
-    public boolean thereIsUser() {
-        return numOfClientsOnline > 0;
+    public boolean thereIsUser(int numOfClientsOnline) {
+        if (numOfClientsOnline == 0) {
+            return true;
+        }
+        return false;
     }
 }
