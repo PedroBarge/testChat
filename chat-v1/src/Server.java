@@ -43,15 +43,16 @@ public class Server {
             System.out.println("Success " + serverSocket.getInetAddress() + serverSocket.getLocalPort());
             System.out.println("Waiting for clients...");
 
-            while (isOn) {
+            while (true) {
                 Socket clientSocket = serverSocket.accept();
                 numOfClientsOnline++;
                 ClientManager clientManager = new ClientManager(clientSocket, numOfClientsOnline);
+                System.out.println(numOfClientsOnline);
                 clientManager.start();
-//                if (!clientManager.thereIsUser(numOfClientsOnline)) {
-//                    isOn = false;
-//                    clientManager.interrupt();
-//                }
+
+                if (clientManager.thereIsUser(numOfClientsOnline)) {
+                    clientSocket.close();
+                }
             }
         } catch (IOException e) {
             e.printStackTrace();

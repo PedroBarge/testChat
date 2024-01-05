@@ -38,10 +38,7 @@ public class ClientManager extends Thread {
 
             welcomeText(textOut);
             boolean isRuning = true;
-
             clientIsOnTheServer(isRuning, textIn, textOut, name);
-
-
             //stop();
         } catch (IOException e) {
             e.printStackTrace();
@@ -66,10 +63,10 @@ public class ClientManager extends Thread {
 
             if (msgIncome.contains("quit") || msgIncome.contains("exit")) {
                 textOut.println("Exiting...");
-                isRuning = false;
                 numOfClientsOnline--;
-                thereIsUser(numOfClientsOnline);
                 clientSocket.close();
+                thereIsUser(numOfClientsOnline);
+                isRuning = false;
             }
 
             if (!msgIncome.contains("hello server") && !msgIncome.contains("quit")) {
@@ -78,6 +75,8 @@ public class ClientManager extends Thread {
             }
             textOut.println();
             incomeInfoFromUser(msgIncome, adressUser);
+            System.out.println("Is connected? " + clientSocket.isConnected());
+            System.out.println("Is closed? " + clientSocket.isClosed());
         }
     }
 
@@ -88,7 +87,7 @@ public class ClientManager extends Thread {
     }
 
     public boolean thereIsUser(int numOfClientsOnline) {
-        if (numOfClientsOnline == 0) {
+        if (numOfClientsOnline == 0 && clientSocket.isClosed()) {
             return true;
         }
         return false;
