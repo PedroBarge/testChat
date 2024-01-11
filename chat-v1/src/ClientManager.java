@@ -69,7 +69,6 @@ public class ClientManager extends Thread {
             if (msgIncome.contains("quit") || msgIncome.contains("exit")) {
                 textOut.println("Exiting...");
                 numUser--;
-                thereIsUser();
                 clientSocket.close();
                 isRuning = false;
             }

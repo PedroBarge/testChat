@@ -41,6 +41,9 @@ public class Server {
 
             while (true) {
                 System.out.println("Waiting for clients...");
+                if (serverSocket.isClosed()){
+                    break;
+                }
                 Socket clientSocket = serverSocket.accept();
 
                 // Cria uma nova thread para lidar com o cliente
@@ -52,7 +55,7 @@ public class Server {
                         try {
                             clientSocket.close();
                             closeServer();
-                            clientManager.interrupt();
+//                            clientManager.interrupt();
                         } catch (IOException e) {
                             e.printStackTrace();
                         }
