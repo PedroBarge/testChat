@@ -4,12 +4,12 @@ import java.net.Socket;
 
 public class ClientManager extends Thread {
     private final Socket clientSocket;
-    private int numOfClientsOnline;
 
-    public ClientManager(Socket socketClient, int numOfClientsOnline) {
+    public ClientManager(Socket socketClient) {
         this.clientSocket = socketClient;
-        this.numOfClientsOnline = numOfClientsOnline;
     }
+
+    int numUser = 0;
 
     @Override
     public void run() {
@@ -33,14 +33,18 @@ public class ClientManager extends Thread {
                 fw.close();
             } catch (IOException error) {
                 System.out.println("An error occurred writting to the DB.");
+                System.out.println(error);
                 error.printStackTrace();
             }
 
+            numUser++;
             welcomeText(textOut);
+
             boolean isRuning = true;
             clientIsOnTheServer(isRuning, textIn, textOut, name);
             //stop();
         } catch (IOException e) {
+            System.out.println(e);
             e.printStackTrace();
         }
     }
@@ -64,9 +68,9 @@ public class ClientManager extends Thread {
 
             if (msgIncome.contains("quit") || msgIncome.contains("exit")) {
                 textOut.println("Exiting...");
-                numOfClientsOnline--;
+                numUser--;
+                thereIsUser();
                 clientSocket.close();
-                thereIsUser(numOfClientsOnline);
                 isRuning = false;
             }
 
@@ -87,8 +91,8 @@ public class ClientManager extends Thread {
         System.out.println();
     }
 
-    public boolean thereIsUser(int numOfClientsOnline) {
-        if (numOfClientsOnline == 0 && clientSocket.isClosed()) {
+    public boolean thereIsUser() {
+        if (clientSocket.isClosed() && numUser == 0) {
             return true;
         }
         return false;
