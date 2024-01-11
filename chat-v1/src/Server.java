@@ -10,7 +10,7 @@ public class Server {
 
     boolean foda = true;
 
-    public void start() {
+    /*public void start() {
         try {
             serverSocket = new ServerSocket(8666);
             System.out.println("Success " + serverSocket.getInetAddress() + serverSocket.getLocalPort());
@@ -29,6 +29,37 @@ public class Server {
                 }
             }
 
+        } catch (IOException e) {
+            System.out.println(e);
+            e.printStackTrace();
+        }
+    }*/
+
+    public void start() {
+        try {
+            serverSocket = new ServerSocket(8666);
+            System.out.println("Success " + serverSocket.getInetAddress() + serverSocket.getLocalPort());
+
+            while (true) {
+                System.out.println("Waiting for clients...");
+                Socket clientSocket = serverSocket.accept();
+
+                // Cria uma nova thread para lidar com o cliente
+                new Thread(() -> {
+                    ClientManager clientManager = new ClientManager(clientSocket);
+                    clientManager.run();
+
+                    if (clientManager.thereIsUser()) {
+                        try {
+                            clientSocket.close();
+                            closeServer();
+                            clientManager.interrupt();
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                }).start();
+            }
         } catch (IOException e) {
             System.out.println(e);
             e.printStackTrace();
