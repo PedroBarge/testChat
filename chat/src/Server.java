@@ -11,8 +11,6 @@ public class Server {
     }
 
     public void startServer(int portNumber) throws IOException {
-
-
         serverSocket = new ServerSocket(portNumber);
         newConnection = serverSocket.accept();
 
